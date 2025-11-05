@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useAuth } from "react-oidc-context";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const auth = useAuth();
+
+  if (auth.isLoading) return <p className="p-6">Loading auth...</p>;
+  if (auth.error) return <p className="p-6 text-red-600">Auth error: {String(auth.error)}</p>;
+
+  if (!auth.isAuthenticated) {
+    return (
+      <div className="h-screen flex flex-col items-center justify-center space-y-4">
+        <h1 className="text-3xl font-bold">Notes App</h1>
+        <button
+          onClick={() => auth.signinRedirect()}
+          className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+        >
+          Sign In
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="h-screen flex flex-col items-center justify-center space-y-4">
+      <p className="text-xl">Hello, {auth.user?.profile?.email || "user"}</p>
+      <button
+        onClick={() => auth.signoutRedirect()}
+        className="px-4 py-2 rounded bg-gray-800 text-white hover:bg-gray-900"
+      >
+        Sign Out
+      </button>
+    </div>
+  );
 }
 
-export default App
