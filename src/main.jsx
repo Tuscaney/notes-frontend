@@ -17,7 +17,7 @@ const cognitoAuthConfig = {
   redirect_uri: "http://localhost:5173",
   post_logout_redirect_uri: "http://localhost:5173",
   response_type: "code",
-  scope: "openid email profile",
+  scope: "openid email phone",
   userStore: new WebStorageStateStore({ store: window.localStorage }),
   onSigninCallback() {
     // Strip ?code & ?state after successful login so refreshes are clean
