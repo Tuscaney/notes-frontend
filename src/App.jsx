@@ -1,4 +1,3 @@
-import Notes from "./pages/Notes";
 import RequireAuth from "./auth/RequireAuth";
 import UserBadge from "./components/UserBadge";
 
