@@ -1,14 +1,6 @@
 import RequireAuth from "./auth/RequireAuth";
 import UserBadge from "./components/UserBadge";
-
-function Notes() {
-  return (
-    <div style={{ padding: 24 }}>
-      <h2>Your Notes</h2>
-      <p>(Tomorrow you'll fetch/save notes owned by the current user.)</p>
-    </div>
-  );
-}
+import Notes from "./pages/Notes";
 
 export default function App() {
   return (
@@ -21,5 +13,6 @@ export default function App() {
     </div>
   );
 }
+
 
 
